@@ -1,0 +1,49 @@
+{
+  "heroes": [
+    {
+      "name": "Thor",
+      "description": "Стріляю блискавками, бог грому та грогу",
+      "element": "fire",
+      "id": "16366aad-4e8e-493f-ba4a-b4fd670c5824"
+    },
+    {
+      "name": "Українець",
+      "description": "Найкраща людина в світі",
+      "element": "earth",
+      "id": "8e59e3ab-75d2-46a9-af21-32a42ef3b414"
+    },
+    {
+      "name": "Junior Developer",
+      "description": "Також найкраща людина в світі",
+      "element": "water",
+      "id": "f6cfe782-99f9-44cd-bdda-1576ca46fbaf"
+    }
+  ],
+  "filters": [
+    {
+      "value": "all",
+      "text": "всі",
+      "type": "outline-dark"
+    },
+    {
+      "value": "fire",
+      "text": "вогонь",
+      "type": "danger"
+    },
+    {
+      "value": "water",
+      "text": "вода",
+      "type": "primary"
+    },
+    {
+      "value": "wind",
+      "text": "вітер",
+      "type": "success"
+    },
+    {
+      "value": "earth",
+      "text": "земля",
+      "type": "secondary"
+    }
+  ]
+}
