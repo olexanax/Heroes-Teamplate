@@ -2,22 +2,15 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import {useHttp} from '../../hooks/http.hook';
 import {useDispatch, useSelector} from "react-redux";
-import {filtersFetched, filtersFetchingError, filtersFetching, heroesFetching, heroesFetched, heroesFetchingError} from '../../actions';
+import {fetchFilters, heroesAddNew} from '../../actions';
 import { v4 as uuidv4 } from 'uuid';
 import ErrorMessage from "../errorMessage/ErrorMessage";
-// Задача для этого компонента:
-// Реализовать создание нового героя с введенными данными. Он должен попадать
-// в общее состояние и отображаться в списке + фильтроваться
-// Уникальный идентификатор персонажа можно сгенерировать через uiid
-// Усложненная задача:
-// Персонаж создается и в файле json при помощи метода POST
-// Дополнительно:
-// Элементы <option></option> желательно сформировать на базе
-// данных из фильтров
+
 
 const HeroesAddForm = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const {filters, filtersLoadingStatus} = useSelector(state => state.filters);
+    const { register, handleSubmit, formState: { errors }, reset} = useForm();
+    const {filters, filtersLoadingStatus} = useSelector(state =>state.filters);
+    const heroes = useSelector(state => state.heroes.heroes)
     const {request} = useHttp();
     const dispatch = useDispatch()
 
@@ -26,23 +19,24 @@ const HeroesAddForm = () => {
     // eslint-disable-next-line
     },[])
 
-    const onSubmit = async data => {
-        await request(`http://localhost:3001/heroes`, "POST",JSON.stringify({ ...data, id: uuidv4()}))
-        await getHeroes()
+    useEffect(() => {
+        reset({
+          name: '',
+          description:'',
+          element: "tool"
+        })
+    // eslint-disable-next-line
+      }, [heroes])
+
+    const onSubmit = data => {
+        request(`http://localhost:3001/heroes`, "POST",JSON.stringify({ ...data, id: uuidv4()}))
+            .then(data=>dispatch(heroesAddNew(data)))
+            .catch(err => console.log(err));
     }
     
     const getFilters = () => {
-        dispatch(filtersFetching());
-        request("http://localhost:3001/filters")
-            .then(data => dispatch(filtersFetched(data)))
-            .catch(() => dispatch(filtersFetchingError()))
+       dispatch(fetchFilters(request))
     }
-    const getHeroes = () => {
-        request("http://localhost:3001/heroes")
-            .then(data => dispatch(heroesFetched(data)))
-            .catch(() => dispatch(heroesFetchingError()))
-    }
-
 
     return (
         <form className="border p-4 shadow-lg rounded" onSubmit={handleSubmit(onSubmit)}>

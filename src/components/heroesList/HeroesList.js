@@ -3,16 +3,11 @@ import { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {CSSTransition,TransitionGroup} from 'react-transition-group';
 import { createSelector } from 'reselect'
-        // eslint-disable-next-line 
-import { heroesFetching, heroesFetched, heroesFetchingError, deleteItem } from '../../actions';
+import { heroesFetching, fetchHeroes, heroesDelete } from '../../actions';
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 import './HeroesList.scss'
 
-// Задача для этого компонента:
-// При клике на "крестик" идет удаление персонажа из общего состояния
-// Усложненная задача:
-// Удаление идет и с json файла при помощи метода DELETE
 
 const HeroesList = () => {
 
@@ -29,15 +24,7 @@ const HeroesList = () => {
     );
 
     const filteredHeroes = useSelector(filteredHeroesSelector)
-    const {heroesLoadingStatus} = useSelector(state => state.heroes);
-    // const filteredHeroes = useSelector(state => {
-    //     console.log('render')
-    //     if(state.filters.activeFilter === 'all'){
-    //         return state.heroes.heroes
-    //     } else {
-    //         return state.heroes.heroes.filter(hero => hero.element === state.filters.activeFilter)
-    //     }
-    // })
+    const heroesLoadingStatus = useSelector(state => state.heroes.heroesLoadingStatus);
     const dispatch = useDispatch();
     const {request} = useHttp();
 
@@ -47,22 +34,16 @@ const HeroesList = () => {
     // eslint-disable-next-line
     }, []);
 
-    const onDelete = useCallback(async id => {
-        //ручне видалення з стору
-        // const index = heroes.findIndex(item => item.id === id)
-        // dispatch(deleteItem(index))
+    const getHeroes = () => {
+        dispatch(fetchHeroes(request))
+    }  
 
-        //видаляємо і робимо новий запит
-        await request(`http://localhost:3001/heroes/${id}`, "DELETE")
-        await getHeroes()
+    const onDelete = useCallback(id => {
+        request(`http://localhost:3001/heroes/${id}`, "DELETE")
+            .then(dispatch(heroesDelete(id)))
+            .catch(err => console.log(err));
         // eslint-disable-next-line 
     }, [])
-
-    const getHeroes = () => {
-        request("http://localhost:3001/heroes")
-            .then(data => dispatch(heroesFetched(data)))
-            .catch(() => dispatch(heroesFetchingError()))
-    }  
 
     if (heroesLoadingStatus === "loading") {
         return <Spinner/>;
