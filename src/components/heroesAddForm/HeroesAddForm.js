@@ -2,12 +2,14 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import {useHttp} from '../../hooks/http.hook';
 import {useDispatch, useSelector} from "react-redux";
-import {fetchFilters, heroesAddNew} from '../../actions';
+import {fetchFilters} from '../../actions';
+import {heroesAddNew} from '../heroesList/heroesSlice'
 import { v4 as uuidv4 } from 'uuid';
 import ErrorMessage from "../errorMessage/ErrorMessage";
 
 
 const HeroesAddForm = () => {
+    console.log('render form')
     const { register, handleSubmit, formState: { errors }, reset} = useForm();
     const {filters, filtersLoadingStatus} = useSelector(state =>state.filters);
     const heroes = useSelector(state => state.heroes.heroes)
