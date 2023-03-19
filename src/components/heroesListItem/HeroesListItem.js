@@ -1,4 +1,5 @@
 import React from "react";
+import unknownHero from '../../assets/unknown-hero.jpg'
 
 
 const HeroesListItem = React.memo(({name, description, element, onDelete, id}) => {
@@ -24,7 +25,7 @@ const HeroesListItem = React.memo(({name, description, element, onDelete, id}) =
     return (
         <li 
             className={`card flex-row mb-4 shadow-lg text-white ${elementClassName}`}>
-            <img src="http://www.stpaulsteinbach.org/wp-content/uploads/2014/09/unknown-hero.jpg" 
+            <img src={unknownHero}
                  className="img-fluid w-25 d-inline" 
                  alt="unknown hero" 
                  style={{'objectFit': 'cover'}}/>
