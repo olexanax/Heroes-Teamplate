@@ -1,6 +1,5 @@
-import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {changeFilter, fetchFilters, selectAll} from './FiltersSlice'
+import {changeFilter,selectAll} from './FiltersSlice'
 import Spinner from "../spinner/Spinner";
 import ErrorMessage from "../errorMessage/ErrorMessage";
 import classNames from 'classnames';
@@ -10,12 +9,6 @@ const HeroesFilters = () => {
     const {filtersLoadingStatus, activeFilter} = useSelector(state => state.filters);
     const filters = useSelector(selectAll)
     const dispatch = useDispatch()
-
-
-    useEffect(()=>{
-         dispatch(fetchFilters())
-    // eslint-disable-next-line
-    },[])
      
     return (
         <div className="card shadow-lg mt-4">
