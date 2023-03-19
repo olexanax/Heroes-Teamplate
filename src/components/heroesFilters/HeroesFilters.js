@@ -7,7 +7,6 @@ import classNames from 'classnames';
 
 
 const HeroesFilters = () => {
-    console.log('render filters')
     const {filtersLoadingStatus, activeFilter} = useSelector(state => state.filters);
     const filters = useSelector(selectAll)
     const dispatch = useDispatch()

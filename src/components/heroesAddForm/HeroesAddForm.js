@@ -8,7 +8,6 @@ import { v4 as uuidv4 } from 'uuid';
 import ErrorMessage from "../errorMessage/ErrorMessage";
 
 const HeroesAddForm = () => {
-    console.log('form')
     const { register, handleSubmit, formState: { errors, isSubmitting}, reset} = useForm();
     const filters = useSelector(selectAll);
     const filtersLoadingStatus = useSelector(state => state.filters.filtersLoadingStatus);
