@@ -17,33 +17,44 @@
       "description": "Також найкраща людина в світі",
       "element": "water",
       "id": "f6cfe782-99f9-44cd-bdda-1576ca46fbaf"
+    },
+    {
+      "name": "vv",
+      "description": "vv",
+      "element": "earth",
+      "id": "c56b6897-8627-4365-81aa-8624bf241fee"
     }
   ],
   "filters": [
     {
       "value": "all",
       "text": "всі",
-      "type": "outline-dark"
+      "type": "outline-dark",
+      "id": 1
     },
     {
       "value": "fire",
       "text": "вогонь",
-      "type": "danger"
+      "type": "danger",
+      "id": 2
     },
     {
       "value": "water",
       "text": "вода",
-      "type": "primary"
+      "type": "primary",
+      "id": 3
     },
     {
       "value": "wind",
       "text": "вітер",
-      "type": "success"
+      "type": "success",
+      "id": 3
     },
     {
       "value": "earth",
       "text": "земля",
-      "type": "secondary"
+      "type": "secondary",
+      "id": 5
     }
   ]
 }

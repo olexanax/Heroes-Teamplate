@@ -1,45 +1,32 @@
-import { useEffect } from "react";
+import { useEffect} from "react";
 import { useForm } from "react-hook-form";
-import {useHttp} from '../../hooks/http.hook';
-import {useDispatch, useSelector} from "react-redux";
-import {fetchFilters} from '../../actions';
-import {heroesAddNew} from '../heroesList/heroesSlice'
+import { useHttp } from '../../hooks/http.hook';
+import { useDispatch, useSelector} from "react-redux";
+import { fetchFilters, selectAll} from "../heroesFilters/FiltersSlice";
+import { heroesAddNew} from '../heroesList/heroesSlice';
 import { v4 as uuidv4 } from 'uuid';
 import ErrorMessage from "../errorMessage/ErrorMessage";
 
-
 const HeroesAddForm = () => {
-    console.log('render form')
-    const { register, handleSubmit, formState: { errors }, reset} = useForm();
-    const {filters, filtersLoadingStatus} = useSelector(state =>state.filters);
-    const heroes = useSelector(state => state.heroes.heroes)
+    console.log('form')
+    const { register, handleSubmit, formState: { errors, isSubmitting}, reset} = useForm();
+    const filters = useSelector(selectAll);
+    const filtersLoadingStatus = useSelector(state => state.filters.filtersLoadingStatus);
     const {request} = useHttp();
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
     useEffect(()=> {
-        getFilters()
-    // eslint-disable-next-line
-    },[])
-
-    useEffect(() => {
-        reset({
-          name: '',
-          description:'',
-          element: "tool"
-        })
-    // eslint-disable-next-line
-      }, [heroes])
+        dispatch(fetchFilters());
+    }, []);
 
     const onSubmit = data => {
         request(`http://localhost:3001/heroes`, "POST",JSON.stringify({ ...data, id: uuidv4()}))
             .then(data=>dispatch(heroesAddNew(data)))
             .catch(err => console.log(err));
+            reset()
+
     }
     
-    const getFilters = () => {
-       dispatch(fetchFilters(request))
-    }
-
     return (
         <form className="border p-4 shadow-lg rounded" onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-3">
@@ -78,10 +65,10 @@ const HeroesAddForm = () => {
                 {errors.element && <ErrorMessage>This field is required</ErrorMessage>}
                 {filtersLoadingStatus === 'error' && <ErrorMessage>request is failed</ErrorMessage>}
             </div>
-
-            <button type="submit" className="btn btn-primary">Створити</button>
-        </form>
-    )
-}
+            <button type="submit" disabled={isSubmitting} className="btn btn-primary">
+    {isSubmitting ? 'loading...' : 'Створити'}
+</button>        </form>
+    );
+};
 
 export default HeroesAddForm;
