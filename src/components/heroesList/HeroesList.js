@@ -25,7 +25,7 @@ const HeroesList = () => {
     }  
 
     const onDelete = useCallback(id => {
-        request(`http://localhost:3001/heroes/${id}`, "DELETE")
+        request(`https://json-server-vercel-main-six.vercel.app/heroes/${id}`, "DELETE")
             .then(dispatch(heroesDelete(id)))
             .catch(err => console.log(err));
         // eslint-disable-next-line 

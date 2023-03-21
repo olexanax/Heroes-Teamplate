@@ -15,7 +15,7 @@ const HeroesAddForm = () => {
 
     const onSubmit = data => {
         reset()
-        request(`http://localhost:3001/heroes`, "POST",JSON.stringify({ ...data, id: uuidv4()}))
+        request(`https://json-server-vercel-main-six.vercel.app/heroes`, "POST",JSON.stringify({ ...data, id: uuidv4()}))
             .then(data=>dispatch(heroesAddNew(data)))
             .catch(err => console.log(err));
     }

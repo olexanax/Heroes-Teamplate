@@ -13,7 +13,7 @@ const HeroesFilters = () => {
     return (
         <div className="card shadow-lg mt-4">
             <div className="card-body">
-                <p className="card-text">Відфільтруйте героїв по елементам</p>
+                <p className="card-text">Отфильтруйте героев по элементам</p>
                 <div className="btn-group">
                     {filters.map((item, i) => {
                         return <button 
