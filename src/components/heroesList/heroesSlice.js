@@ -17,7 +17,7 @@ export const fetchHeroes = createAsyncThunk(
     'heroes/fetchHeroes',
     async () => {
         const {request} = useHttp()
-        return await request('https://json-server-vercel-main-six.vercel.app/heroes')
+        return await request('https://ballistic-certain-brick.glitch.me/heroes')
     },
 
 )

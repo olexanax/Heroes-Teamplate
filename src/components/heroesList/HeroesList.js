@@ -25,7 +25,7 @@ const HeroesList = () => {
     }  
 
     const onDelete = useCallback(id => {
-        request(`https://json-server-vercel-main-six.vercel.app/heroes/${id}`, "DELETE")
+        request(`https://ballistic-certain-brick.glitch.me/heroes/${id}`, "DELETE")
             .then(dispatch(heroesDelete(id)))
             .catch(err => console.log(err));
         // eslint-disable-next-line 
